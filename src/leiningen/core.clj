@@ -116,9 +116,10 @@
            (println "...continuing without hooks completely loaded.")))))
 
 (defn user-init [project]
-  (let [init-file (File. (home-dir) "init.clj")]
-    (when (.exists init-file)
-      (load-file (.getAbsolutePath init-file)))))
+  (when-let [home-dir (home-dir)]
+    (let [init-file (File. home-dir "init.clj")]
+      (when (.exists init-file)
+        (load-file (.getAbsolutePath init-file))))))
 
 (defn ns->path [n]
   (str (.. (str n)
